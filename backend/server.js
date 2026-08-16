@@ -87,13 +87,11 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Serveur démarré en mode ${process.env.NODE_ENV || 'développement'} sur le port ${PORT}`);
-    });
-  })
-  .catch((error) => {
-    console.error(`Erreur de connexion MongoDB : ${error.message}`);
-    process.exit(1);
-  });
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Serveur démarré en mode ${process.env.NODE_ENV || 'développement'} sur le port ${PORT}`);
+});
+
+connectDB().catch((error) => {
+  console.error(`Erreur de connexion MongoDB : ${error.message}`);
+  process.exit(1);
+});
