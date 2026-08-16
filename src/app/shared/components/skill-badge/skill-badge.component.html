@@ -1,0 +1,9 @@
+<div class="skill-badge">
+  <div class="skill-badge__header">
+    <span class="skill-badge__name">{{ skill().name }}</span>
+    <span class="skill-badge__level">{{ skill().level }}%</span>
+  </div>
+  <div class="skill-badge__bar">
+    <div class="skill-badge__bar-fill" [style.width.%]="skill().level"></div>
+  </div>
+</div>

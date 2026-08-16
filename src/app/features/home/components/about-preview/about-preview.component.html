@@ -1,0 +1,26 @@
+<section class="about-preview" id="about">
+  <div class="about-preview__inner">
+    <div class="about-preview__text">
+      <p class="eyebrow">À propos</p>
+      <h2 class="about-preview__title">{{ profile().headline }}</h2>
+      <p class="about-preview__description">
+        {{ profile().introduction }}
+      </p>
+      <a routerLink="/a-propos" class="link-arrow">En savoir plus →</a>
+    </div>
+
+    <div class="about-preview__aside">
+      <div class="about-preview__stats">
+        @for (stat of stats; track stat.label) {
+          <div class="about-preview__stat">
+            <span class="about-preview__stat-number">{{ stat.number }}</span>
+            <span class="about-preview__stat-label">{{ stat.label }}</span>
+          </div>
+        }
+      </div>
+      <p class="about-preview__aside-text">
+        De la maquette à l'API, je privilégie un code lisible, des interfaces soignées et des livrables que l'on peut montrer.
+      </p>
+    </div>
+  </div>
+</section>

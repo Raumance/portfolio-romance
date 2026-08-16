@@ -1,0 +1,8 @@
+<div class="skill-category">
+  <h2 class="skill-category__title">{{ label() }}</h2>
+  <div class="skill-category__list">
+    @for (skill of skills(); track skill._id) {
+      <app-skill-badge [skill]="skill" />
+    }
+  </div>
+</div>

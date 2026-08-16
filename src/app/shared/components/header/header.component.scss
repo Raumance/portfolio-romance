@@ -1,0 +1,116 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(12px);
+
+  &__inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    min-height: var(--header-h);
+    padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+  }
+
+  &__logo-icon {
+    color: var(--color-accent);
+    font-weight: 800;
+    font-size: 1.15rem;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 1.85rem;
+
+    a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      transition: color var(--transition-base);
+
+      &:hover,
+      &.is-active {
+        color: var(--color-text);
+      }
+    }
+  }
+
+  &__cv {
+    background: var(--color-accent);
+    color: #fff !important;
+    padding: 0.55rem 1rem;
+    font-weight: 600;
+    font-size: 0.82rem;
+
+    &:hover {
+      background: #1558d6;
+    }
+  }
+
+  &__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    span {
+      display: block;
+      height: 2px;
+      background: var(--color-text);
+      border-radius: 2px;
+
+      &:first-child {
+        width: 22px;
+      }
+
+      &:last-child {
+        width: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 900px) {
+    &__nav {
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      background: var(--color-bg-alt);
+      padding: 1.5rem clamp(1.25rem, 4vw, 2.5rem) 2rem;
+      transform: translateY(-120%);
+      transition: transform var(--transition-base);
+
+      &--open {
+        transform: translateY(0);
+      }
+    }
+
+    &__burger {
+      display: flex;
+    }
+  }
+}

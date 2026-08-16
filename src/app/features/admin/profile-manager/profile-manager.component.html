@@ -1,0 +1,78 @@
+<div class="manager">
+  <div class="manager__header">
+    <div class="manager__heading">
+      <h1 class="manager__title">À propos</h1>
+      <p class="manager__lede">Ces textes alimentent l’accueil, la page À propos et le bouton CV.</p>
+    </div>
+  </div>
+
+  <div class="manager-split">
+    <form class="manager-form manager-form--flush" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <p class="manager-form__title">Contenu public</p>
+
+      <div class="manager-form__field">
+        <label for="headline">Accroche</label>
+        <input id="headline" type="text" formControlName="headline" />
+      </div>
+
+      <div class="manager-form__field">
+        <label for="introduction">Introduction (accueil)</label>
+        <textarea id="introduction" rows="3" formControlName="introduction"></textarea>
+      </div>
+
+      <div class="manager-form__field">
+        <label for="bio">Présentation détaillée</label>
+        <textarea id="bio" rows="8" formControlName="bio"></textarea>
+      </div>
+
+      <div class="manager-form__field">
+        <label for="softSkills">Soft skills (séparées par des virgules)</label>
+        <input id="softSkills" type="text" formControlName="softSkills" />
+      </div>
+
+      <div class="manager-form__field">
+        <label for="interests">Centres d'intérêt (séparés par des virgules)</label>
+        <input id="interests" type="text" formControlName="interests" />
+      </div>
+
+      <div class="manager-form__field">
+        <label for="cvUrl">CV (PDF ou image)</label>
+        <input id="cvUrl" type="text" formControlName="cvUrl" />
+        <input type="file" accept="application/pdf,image/*" (change)="onCvSelected($event)" />
+        @if (isUploading()) {
+          <small class="manager__hint">Envoi du CV…</small>
+        }
+      </div>
+
+      <div class="manager-form__actions">
+        <button type="submit" class="manager-form__submit" [disabled]="isSaving() || isUploading()">
+          @if (isSaving()) { Enregistrement... } @else { Publier les modifications }
+        </button>
+      </div>
+    </form>
+
+    <aside class="manager-preview">
+      <p class="eyebrow">Aperçu</p>
+      <h2>{{ form.controls.headline.value }}</h2>
+      <p>{{ form.controls.introduction.value }}</p>
+      <p>{{ form.controls.bio.value }}</p>
+      @if (previewSkills().length) {
+        <div class="manager-chips">
+          @for (skill of previewSkills(); track skill) {
+            <span class="manager-chip">{{ skill }}</span>
+          }
+        </div>
+      }
+      @if (previewInterests().length) {
+        <div class="manager-chips">
+          @for (interest of previewInterests(); track interest) {
+            <span class="manager-pill">{{ interest }}</span>
+          }
+        </div>
+      }
+      @if (form.controls.cvUrl.value) {
+        <a class="manager-preview__cv" [href]="form.controls.cvUrl.value" target="_blank" rel="noopener">Ouvrir le CV</a>
+      }
+    </aside>
+  </div>
+</div>

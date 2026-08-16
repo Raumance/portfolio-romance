@@ -1,0 +1,51 @@
+<div class="project-filter">
+  <div class="project-filter__group">
+    <p class="project-filter__label">Catégorie</p>
+    <div class="project-filter__row">
+      <button
+        type="button"
+        class="project-filter__btn"
+        [class.project-filter__btn--active]="activeCategory() === 'all'"
+        (click)="selectCategory('all')"
+      >
+        Tous
+      </button>
+      @for (category of categories(); track category) {
+        <button
+          type="button"
+          class="project-filter__btn"
+          [class.project-filter__btn--active]="activeCategory() === category"
+          (click)="selectCategory(category)"
+        >
+          {{ category | titlecase }}
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (technologies().length > 0) {
+    <div class="project-filter__group">
+      <p class="project-filter__label">Technologie</p>
+      <div class="project-filter__row">
+        <button
+          type="button"
+          class="project-filter__btn"
+          [class.project-filter__btn--active]="activeTechnology() === 'all'"
+          (click)="selectTechnology('all')"
+        >
+          Toutes
+        </button>
+        @for (tech of technologies(); track tech) {
+          <button
+            type="button"
+            class="project-filter__btn"
+            [class.project-filter__btn--active]="activeTechnology() === tech"
+            (click)="selectTechnology(tech)"
+          >
+            {{ tech }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>

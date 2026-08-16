@@ -1,0 +1,30 @@
+.skill-badge {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  &__name {
+    font-weight: 600;
+    padding-right: 0.75rem;
+    line-height: 1.35;
+  }
+
+  &__level {
+    color: var(--color-text-muted);
+  }
+
+  &__bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+
+    &-fill {
+      height: 100%;
+      background: var(--color-accent);
+      transition: width 0.6s ease;
+    }
+  }
+}

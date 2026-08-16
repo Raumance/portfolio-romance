@@ -1,0 +1,24 @@
+<section class="login-page">
+  <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <h1 class="login-form__title">Espace administrateur</h1>
+    <p class="login-form__hint">Connecte-toi avec <code>ADMIN_EMAIL</code> et <code>ADMIN_PASSWORD</code> de <code>backend/.env</code>.</p>
+
+    <div class="login-form__field">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" formControlName="email" autocomplete="username" />
+    </div>
+
+    <div class="login-form__field">
+      <label for="password">Mot de passe</label>
+      <input id="password" type="password" formControlName="password" autocomplete="current-password" />
+    </div>
+
+    @if (errorMessage()) {
+      <p class="login-form__error">{{ errorMessage() }}</p>
+    }
+
+    <button type="submit" class="login-form__submit" [disabled]="isSubmitting()">
+      @if (isSubmitting()) { Connexion... } @else { Se connecter }
+    </button>
+  </form>
+</section>

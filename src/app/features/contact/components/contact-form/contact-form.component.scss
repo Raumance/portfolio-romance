@@ -1,0 +1,99 @@
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+
+  &__honeypot {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__row {
+    display: grid;
+    gap: 1.5rem;
+
+    @media (min-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    input,
+    textarea {
+      background-color: var(--color-bg-alt);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 0;
+      padding: 0.75rem 1rem;
+      color: var(--color-text);
+      font-family: inherit;
+      font-size: 0.95rem;
+
+      &:focus {
+        outline: none;
+        border-color: var(--color-accent);
+      }
+    }
+
+    textarea {
+      resize: vertical;
+    }
+  }
+
+  &__input--error {
+    border-color: #e5484d !important;
+  }
+
+  &__error {
+    color: #e5484d;
+    font-size: 0.8rem;
+  }
+
+  &__submit {
+    align-self: flex-start;
+    background-color: var(--color-accent);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 2rem;
+    border-radius: 0;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity var(--transition-base);
+
+    &:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__feedback {
+    font-size: 0.9rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0;
+
+    &--success {
+      background-color: rgba(34, 197, 94, 0.12);
+      color: #4ade80;
+    }
+
+    &--error {
+      background-color: rgba(229, 72, 77, 0.12);
+      color: #f87171;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<div class="manager">
+  <div class="manager__header">
+    <div class="manager__heading">
+      <h1 class="manager__title">Messages</h1>
+      <p class="manager__lede">Boîte de réception actualisée toutes les 12 secondes.</p>
+    </div>
+    @if (unreadCount() > 0) {
+      <span class="manager__badge">{{ unreadCount() }} non lu{{ unreadCount() > 1 ? 's' : '' }}</span>
+    }
+  </div>
+
+  <input
+    class="manager__search"
+    type="search"
+    placeholder="Filtrer par nom, e-mail ou sujet…"
+    [value]="query()"
+    (input)="query.set($any($event.target).value)"
+  />
+
+  <div class="messages-layout">
+    <table class="manager-table messages-layout__list">
+      <thead>
+        <tr><th></th><th>De</th><th>Sujet</th><th>Date</th></tr>
+      </thead>
+      <tbody>
+        @for (message of messages(); track message._id) {
+          <tr
+            class="messages-layout__row"
+            [class.messages-layout__row--unread]="!message.read"
+            [class.messages-layout__row--active]="selectedId() === message._id"
+            (click)="selectMessage(message)"
+          >
+            <td><span class="messages-layout__dot" [class.messages-layout__dot--unread]="!message.read"></span></td>
+            <td>{{ message.name }}</td>
+            <td>{{ message.subject }}</td>
+            <td>{{ message.createdAt | date: 'dd/MM HH:mm' }}</td>
+          </tr>
+        } @empty {
+          <tr><td colspan="4" class="manager-table__empty">Aucun message pour le moment.</td></tr>
+        }
+      </tbody>
+    </table>
+
+    @if (selectedMessage(); as m) {
+      <div class="messages-layout__detail">
+        <h2>{{ m.subject }}</h2>
+        <p class="messages-layout__meta"><strong>{{ m.name }}</strong> — <a [href]="'mailto:' + m.email">{{ m.email }}</a></p>
+        <p class="messages-layout__date">{{ m.createdAt | date: 'dd/MM/yyyy à HH:mm' }}</p>
+        <p class="messages-layout__body">{{ m.message }}</p>
+        <div class="manager-form__actions">
+          <button type="button" class="manager-form__submit" (click)="replyTo(m)">Répondre</button>
+          <button type="button" class="manager-form__cancel manager-table__delete" (click)="deleteMessage(m)">Supprimer</button>
+        </div>
+      </div>
+    } @else {
+      <div class="messages-layout__detail messages-layout__empty">
+        Sélectionne un message pour le lire.
+      </div>
+    }
+  </div>
+</div>

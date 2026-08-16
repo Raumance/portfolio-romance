@@ -1,59 +1,82 @@
-# PortfolioFrontend
+# Portfolio Romance Nguema
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.19.
+Site portfolio MEAN (MongoDB, Express, Angular, Node.js) de **Romance Nguema** (NGUEMA Raumance), développeur web et mobile.
 
-## Development server
+- GitHub : [github.com/Raumance](https://github.com/Raumance)
+- LinkedIn : [linkedin.com/in/romance-nguema-760b732a0](https://www.linkedin.com/in/romance-nguema-760b732a0/)
 
-To start a local development server, run:
+## Stack
+
+| Couche | Technologies |
+| --- | --- |
+| Frontend | Angular 21, TypeScript, RxJS, Reactive Forms, SCSS |
+| Backend | Node.js, Express, Mongoose, JWT, bcrypt, Nodemailer |
+| Base | MongoDB (locale ou Atlas) |
+| Sécurité | Helmet, CORS, rate-limit, mongo-sanitize, express-validator |
+
+## Prérequis
+
+- Node.js 18+
+- MongoDB local ou un cluster Atlas
+
+## Installation
 
 ```bash
-ng serve
+npm install
+cd backend
+npm install
+cp .env.example .env
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Renseigner `backend/.env` (`MONGO_URI`, `JWT_SECRET`, `FRONTEND_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, SMTP).
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Lancement
 
 ```bash
-ng generate component component-name
+# API (depuis backend/)
+npm run dev
+
+# Données initiales (projets, compétences, parcours, profil, admin)
+npm run seed
+
+# Frontend (à la racine)
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Le frontend tourne sur `http://localhost:4200`, l'API sur `http://localhost:5000`.
 
-```bash
-ng generate --help
-```
+## Médias
 
-## Building
+- Portrait : `src/assets/images/NGUEMA.jpeg`
+- CV : dépose un PDF dans `src/assets/cv-romance-nguema.pdf`, ou envoie-le depuis `/admin/profile`
+- Images de projets : upload depuis `/admin/projects` (Multer, dossier `backend/uploads`)
 
-To build the project run:
+## Pages publiques
+
+- `/` Accueil
+- `/a-propos` Parcours, soft skills, CV
+- `/competences` Compétences par catégorie
+- `/portfolio` et `/portfolio/:id` Projets filtrables
+- `/contact` Formulaire + coordonnées
+- `/mentions-legales`
+
+Le blog (`/blog`) est prévu en version 2 et n'est pas inclus.
+
+## Administration
+
+Espace protégé par JWT : `/admin`
+
+- CRUD projets, compétences, parcours
+- Édition du contenu « À propos » (sans modifier le code)
+- Consultation des messages de contact
+
+## Variables d'environnement (backend)
+
+Voir `backend/.env.example`. Ne jamais versionner le fichier `.env`.
+
+## Build de production
 
 ```bash
 ng build
+cd backend && npm start
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

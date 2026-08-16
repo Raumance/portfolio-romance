@@ -1,0 +1,91 @@
+<div class="manager">
+  <div class="manager__header">
+    <div class="manager__heading">
+      <h1 class="manager__title">Parcours</h1>
+      <p class="manager__lede">Formations, expériences et projets affichés sur la frise « À propos ».</p>
+    </div>
+    <button type="button" class="manager__add-btn" (click)="openCreateForm()">+ Nouvelle étape</button>
+  </div>
+
+  @if (isFormOpen()) {
+    <form class="manager-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <h2 class="manager-form__title">{{ editingId() ? 'Modifier l\'étape' : 'Nouvelle étape' }}</h2>
+
+      <div class="manager-form__field">
+        <label for="title">Intitulé</label>
+        <input id="title" type="text" formControlName="title" />
+      </div>
+
+      <div class="manager-form__row">
+        <div class="manager-form__field">
+          <label for="institution">Établissement / structure</label>
+          <input id="institution" type="text" formControlName="institution" />
+        </div>
+        <div class="manager-form__field">
+          <label for="type">Type</label>
+          <select id="type" formControlName="type">
+            @for (type of types; track type) {
+              <option [value]="type">{{ type }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="manager-form__row">
+        <div class="manager-form__field">
+          <label for="startDate">Début</label>
+          <input id="startDate" type="date" formControlName="startDate" />
+        </div>
+        <div class="manager-form__field">
+          <label for="endDate">Fin</label>
+          <input id="endDate" type="date" formControlName="endDate" />
+        </div>
+      </div>
+
+      <label class="manager-form__checkbox">
+        <input type="checkbox" formControlName="ongoing" />
+        En cours
+      </label>
+
+      <div class="manager-form__field">
+        <label for="description">Description</label>
+        <textarea id="description" rows="4" formControlName="description"></textarea>
+      </div>
+
+      <div class="manager-form__actions">
+        <button type="button" class="manager-form__cancel" (click)="cancelForm()">Annuler</button>
+        <button type="submit" class="manager-form__submit" [disabled]="isSaving()">
+          @if (isSaving()) { Enregistrement... } @else { Enregistrer }
+        </button>
+      </div>
+    </form>
+  }
+
+  <table class="manager-table">
+    <thead>
+      <tr><th>Intitulé</th><th>Type</th><th>Période</th><th></th></tr>
+    </thead>
+    <tbody>
+      @for (item of experiences(); track item._id) {
+        <tr>
+          <td>
+            <strong>{{ item.title }}</strong>
+            <div class="manager__hint">{{ item.institution }}</div>
+          </td>
+          <td><span class="manager-pill manager-pill--on">{{ item.type }}</span></td>
+          <td>
+            {{ item.startDate | date: 'MMM yyyy' }}
+            →
+            {{ item.endDate ? (item.endDate | date: 'MMM yyyy') : 'en cours' }}
+          </td>
+          <td class="manager-table__actions">
+            <button type="button" (click)="openEditForm(item)">Modifier</button>
+            <button type="button" class="manager-table__delete" (click)="deleteItem(item)">Supprimer</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="4" class="manager-table__empty">Aucune étape pour le moment.</td></tr>
+      }
+    </tbody>
+  </table>
+</div>

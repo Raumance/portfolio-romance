@@ -1,0 +1,60 @@
+.contact-page {
+  min-height: 100vh;
+}
+
+.contact-intro {
+  padding: 5.5rem 0 2rem;
+
+  &__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  &__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2.3rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  &__text {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+}
+
+.contact-content {
+  padding: 0 0 5.5rem;
+
+  &__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+    display: grid;
+    gap: 3rem;
+  }
+
+  &__info {
+    h2 {
+      margin: 0 0 1rem;
+      font-size: 1.15rem;
+    }
+
+    p {
+      margin: 0 0 0.45rem;
+      color: var(--color-text-soft);
+    }
+
+    a {
+      color: var(--color-accent);
+    }
+  }
+}
+
+@media (min-width: 800px) {
+  .contact-content__inner {
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+}

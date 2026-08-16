@@ -1,0 +1,23 @@
+<div class="manager">
+  <div class="manager__header">
+    <div class="manager__heading">
+      <h1 class="manager__title">Tableau de bord</h1>
+      <p class="manager__lede">Vue d’ensemble du contenu public. Les messages se mettent à jour automatiquement.</p>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card"><strong>{{ projectCount() }}</strong><span>Projets</span></div>
+    <div class="stat-card"><strong>{{ skillCount() }}</strong><span>Compétences</span></div>
+    <div class="stat-card"><strong>{{ experienceCount() }}</strong><span>Étapes du parcours</span></div>
+    <div class="stat-card"><strong>{{ unreadCount() }}</strong><span>Messages non lus / {{ messageCount() }}</span></div>
+  </div>
+
+  <div class="quick-links">
+    <a routerLink="/admin/projects">Éditer les projets</a>
+    <a routerLink="/admin/skills">Éditer les compétences</a>
+    <a routerLink="/admin/experiences">Éditer le parcours</a>
+    <a routerLink="/admin/profile">Éditer À propos + CV</a>
+    <a routerLink="/admin/messages">Ouvrir la boîte de réception</a>
+  </div>
+</div>

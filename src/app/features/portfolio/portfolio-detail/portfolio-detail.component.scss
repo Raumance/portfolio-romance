@@ -1,0 +1,128 @@
+.portfolio-detail {
+  min-height: 100vh;
+
+  &__hero {
+    padding: 5.5rem 1.5rem 2rem;
+  }
+
+  &__inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  &__back {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+
+  &__title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin: 0 0 1.5rem;
+  }
+
+  &__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+
+    li {
+      background-color: rgba(47, 111, 237, 0.15);
+      color: var(--color-accent);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    a {
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    a:first-child {
+      background-color: transparent;
+      border: 1px solid var(--color-text-muted);
+      color: var(--color-text);
+
+      &:hover { border-color: var(--color-text); }
+    }
+
+    a:last-child {
+      background-color: var(--color-accent);
+      color: #fff;
+
+      &:hover { opacity: 0.9; }
+    }
+  }
+
+  &__body {
+    padding: 0 1.5rem 5rem;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto 1rem;
+    background: var(--color-bg-alt);
+  }
+
+  &__thumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0 0 2rem;
+  }
+
+  &__thumb {
+    width: 88px;
+    height: 64px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--color-bg-alt);
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &.is-active {
+      border-color: var(--color-accent);
+    }
+  }
+
+  &__description {
+    color: var(--color-text-muted);
+    line-height: 1.8;
+    white-space: pre-line;
+  }
+
+  &__empty {
+    padding: 5rem 1.5rem;
+    text-align: center;
+    color: var(--color-text-muted);
+  }
+}

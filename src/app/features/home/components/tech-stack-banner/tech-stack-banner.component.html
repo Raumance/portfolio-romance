@@ -1,0 +1,13 @@
+<section class="tech-stack-banner">
+  <div class="tech-stack-banner__inner">
+    <p class="tech-stack-banner__label">Stack technique</p>
+    <div class="tech-stack-banner__list">
+      @for (item of stacks; track item) {
+        <span class="tech-stack-banner__item">
+          <span class="tech-stack-banner__mark" aria-hidden="true"></span>
+          {{ item }}
+        </span>
+      }
+    </div>
+  </div>
+</section>

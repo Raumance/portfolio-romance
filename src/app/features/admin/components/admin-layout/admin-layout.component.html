@@ -1,0 +1,33 @@
+<div class="admin-shell">
+  <aside class="admin-shell__sidebar">
+    <div>
+      <p class="admin-shell__logo">Romance Nguema</p>
+      <p class="admin-shell__sub">Back-office</p>
+    </div>
+
+    <nav class="admin-shell__nav">
+      <a routerLink="/admin" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Tableau de bord</a>
+      <a routerLink="/admin/projects" routerLinkActive="is-active">Projets</a>
+      <a routerLink="/admin/skills" routerLinkActive="is-active">Compétences</a>
+      <a routerLink="/admin/experiences" routerLinkActive="is-active">Parcours</a>
+      <a routerLink="/admin/profile" routerLinkActive="is-active">À propos</a>
+      <a routerLink="/admin/messages" routerLinkActive="is-active">
+        Messages
+        @if (inbox.unreadCount() > 0) {
+          <span class="admin-shell__badge">{{ inbox.unreadCount() }}</span>
+        }
+      </a>
+    </nav>
+
+    <a class="admin-shell__site" href="/" target="_blank" rel="noopener noreferrer">Voir le site</a>
+    <button type="button" class="admin-shell__logout" (click)="logout()">Déconnexion</button>
+  </aside>
+
+  <main class="admin-shell__content">
+    <router-outlet />
+  </main>
+
+  @if (notice.message(); as text) {
+    <div class="admin-toast" [class.admin-toast--error]="notice.kind() === 'error'" role="status">{{ text }}</div>
+  }
+</div>

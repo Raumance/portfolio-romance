@@ -1,0 +1,25 @@
+<app-header />
+
+<main class="skills-page">
+  <section class="skills-intro">
+    <div class="skills-intro__inner">
+      <p class="eyebrow">Compétences</p>
+      <h1 class="skills-intro__title">Ma boîte à outils</h1>
+      <p class="skills-intro__text">
+        Les technologies que j'utilise au quotidien, classées par catégorie et estimées selon mon niveau de pratique actuel.
+      </p>
+    </div>
+  </section>
+
+  <section class="skills-groups">
+    <div class="skills-groups__inner">
+      @for (group of groups(); track group.category) {
+        <app-skill-category [label]="group.label" [skills]="group.skills" />
+      } @empty {
+        <p class="skills-groups__empty">Les compétences seront bientôt renseignées ici.</p>
+      }
+    </div>
+  </section>
+</main>
+
+<app-footer />

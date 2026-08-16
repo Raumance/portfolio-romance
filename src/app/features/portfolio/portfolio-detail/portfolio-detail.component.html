@@ -1,0 +1,53 @@
+<app-header />
+
+<main class="portfolio-detail">
+  @if (project(); as p) {
+    <section class="portfolio-detail__hero">
+      <div class="portfolio-detail__inner">
+        <a routerLink="/portfolio" class="link-arrow">Retour au portfolio</a>
+        <img class="portfolio-detail__image" [src]="activeImage() ?? p.image" [alt]="p.title" />
+
+        @if (gallery().length > 1) {
+          <div class="portfolio-detail__thumbs">
+            @for (url of gallery(); track url) {
+              <button type="button" class="portfolio-detail__thumb" (click)="selectImage(url)" [class.is-active]="(activeImage() ?? p.image) === url">
+                <img [src]="url" [alt]="'Aperçu ' + p.title" />
+              </button>
+            }
+          </div>
+        }
+
+        <h1 class="portfolio-detail__title">{{ p.title }}</h1>
+
+        <ul class="portfolio-detail__tech">
+          @for (tech of p.technologies; track tech) {
+            <li>{{ tech }}</li>
+          }
+        </ul>
+
+        <div class="portfolio-detail__links">
+          @if (p.githubUrl) {
+            <a [href]="p.githubUrl" target="_blank" rel="noopener noreferrer">Code source</a>
+          }
+          @if (p.demoUrl) {
+            <a [href]="p.demoUrl" target="_blank" rel="noopener noreferrer">Voir la démo</a>
+          }
+          @if (p.apkUrl) {
+            <a [href]="p.apkUrl" target="_blank" rel="noopener noreferrer">Télécharger l'APK</a>
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio-detail__body">
+      <div class="portfolio-detail__inner">
+        <p class="eyebrow">Contexte</p>
+        <p class="portfolio-detail__description">{{ p.description }}</p>
+      </div>
+    </section>
+  } @else {
+    <p class="portfolio-detail__empty">Chargement du projet...</p>
+  }
+</main>
+
+<app-footer />

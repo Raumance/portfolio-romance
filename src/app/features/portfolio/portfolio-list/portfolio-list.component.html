@@ -1,0 +1,40 @@
+<app-header />
+
+<main class="portfolio-page">
+  <section class="portfolio-intro">
+    <div class="portfolio-intro__inner">
+      <p class="eyebrow">Portfolio</p>
+      <h1 class="portfolio-intro__title">Mes projets</h1>
+      <p class="portfolio-intro__text">
+        Une sélection de projets réalisés en formation et à titre personnel, filtrable par catégorie.
+      </p>
+    </div>
+  </section>
+
+  <section class="portfolio-grid-section">
+    <div class="portfolio-grid-section__inner">
+      @if (categories().length > 0) {
+        <app-project-filter
+          [categories]="categories()"
+          [technologies]="technologies()"
+          [activeCategory]="activeCategory()"
+          [activeTechnology]="activeTechnology()"
+          (categoryChange)="onCategoryChange($event)"
+          (technologyChange)="onTechnologyChange($event)"
+        />
+      }
+
+      @if (filteredProjects().length > 0) {
+        <div class="portfolio-grid-section__grid">
+          @for (project of filteredProjects(); track project._id) {
+            <app-project-card [project]="project" />
+          }
+        </div>
+      } @else {
+        <p class="portfolio-grid-section__empty">Les projets seront bientôt affichés ici.</p>
+      }
+    </div>
+  </section>
+</main>
+
+<app-footer />

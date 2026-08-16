@@ -1,0 +1,77 @@
+<div class="manager">
+  <div class="manager__header">
+    <div class="manager__heading">
+      <h1 class="manager__title">Compétences</h1>
+      <p class="manager__lede">Niveaux affichés sur la page Compétences, regroupés par catégorie.</p>
+    </div>
+    <button type="button" class="manager__add-btn" (click)="openCreateForm()">+ Nouvelle compétence</button>
+  </div>
+
+  @if (isFormOpen()) {
+    <form class="manager-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <h2 class="manager-form__title">{{ editingId() ? 'Modifier la compétence' : 'Nouvelle compétence' }}</h2>
+
+      <div class="manager-form__row">
+        <div class="manager-form__field">
+          <label for="name">Nom</label>
+          <input id="name" type="text" formControlName="name" placeholder="Angular" />
+        </div>
+        <div class="manager-form__field">
+          <label for="category">Catégorie</label>
+          <select id="category" formControlName="category">
+            @for (cat of categories; track cat) {
+              <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="manager-form__row">
+        <div class="manager-form__field">
+          <label for="level">Niveau — {{ form.controls.level.value }}%</label>
+          <input id="level" type="range" min="0" max="100" formControlName="level" />
+          <div class="manager-level"><span [style.width.%]="form.controls.level.value"></span></div>
+        </div>
+        <div class="manager-form__field">
+          <label for="icon">Icône (optionnel)</label>
+          <input id="icon" type="text" formControlName="icon" placeholder="angular.svg" />
+        </div>
+      </div>
+
+      <div class="manager-form__actions">
+        <button type="button" class="manager-form__cancel" (click)="cancelForm()">Annuler</button>
+        <button type="submit" class="manager-form__submit" [disabled]="isSaving()">
+          @if (isSaving()) { Enregistrement... } @else { Enregistrer }
+        </button>
+      </div>
+    </form>
+  }
+
+  @for (group of groupedSkills(); track group.category) {
+    <section class="manager-group">
+      <h2>{{ group.category }}</h2>
+      <table class="manager-table">
+        <thead>
+          <tr><th>Nom</th><th>Niveau</th><th></th></tr>
+        </thead>
+        <tbody>
+          @for (skill of group.items; track skill._id) {
+            <tr>
+              <td>{{ skill.name }}</td>
+              <td>
+                <div class="manager-level"><span [style.width.%]="skill.level"></span></div>
+                <span class="manager__hint">{{ skill.level }}%</span>
+              </td>
+              <td class="manager-table__actions">
+                <button type="button" (click)="openEditForm(skill)">Modifier</button>
+                <button type="button" class="manager-table__delete" (click)="deleteSkill(skill)">Supprimer</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </section>
+  } @empty {
+    <p class="manager__lede">Aucune compétence pour le moment.</p>
+  }
+</div>

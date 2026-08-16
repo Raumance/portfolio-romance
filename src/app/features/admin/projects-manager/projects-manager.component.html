@@ -1,0 +1,182 @@
+<div class="manager">
+  <div class="manager__header">
+    <div class="manager__heading">
+      <h1 class="manager__title">Projets</h1>
+      <p class="manager__lede">Les modifications sont visibles tout de suite sur le site public.</p>
+    </div>
+    <button type="button" class="manager__add-btn" (click)="openCreateForm()">+ Nouveau projet</button>
+  </div>
+
+  <input
+    class="manager__search"
+    type="search"
+    placeholder="Rechercher un projet, une techno…"
+    [value]="query()"
+    (input)="query.set($any($event.target).value)"
+  />
+
+  @if (isFormOpen()) {
+    <form class="manager-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <h2 class="manager-form__title">{{ editingId() ? 'Modifier le projet' : 'Nouveau projet' }}</h2>
+
+      <div class="manager-form__row">
+        <div class="manager-form__field">
+          <label for="title">Titre</label>
+          <input id="title" type="text" formControlName="title" />
+        </div>
+        <div class="manager-form__field">
+          <label for="category">Catégorie</label>
+          <select id="category" formControlName="category">
+            @if (form.controls.category.value && !categories.includes(form.controls.category.value)) {
+              <option [value]="form.controls.category.value">{{ form.controls.category.value }}</option>
+            }
+            @for (cat of categories; track cat) {
+              <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="manager-form__field">
+        <label for="shortDescription">Résumé (carte projet)</label>
+        <input id="shortDescription" type="text" formControlName="shortDescription" />
+      </div>
+
+      <div class="manager-form__field">
+        <label for="description">Description complète</label>
+        <textarea id="description" rows="4" formControlName="description"></textarea>
+      </div>
+
+      <div class="manager-form__field">
+        <label for="technologies">Technologies (séparées par des virgules)</label>
+        <input id="technologies" type="text" formControlName="technologies" placeholder="Angular, Node.js, MongoDB" />
+        @if (techPreview().length) {
+          <div class="manager-chips">
+            @for (tech of techPreview(); track tech) {
+              <span class="manager-chip">{{ tech }}</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="manager-form__field">
+        <label for="image">Image de couverture</label>
+        <input id="image" type="text" formControlName="image" placeholder="URL ou fichier ci-dessous" />
+        <input type="file" accept="image/*" (change)="onCoverSelected($event)" />
+      </div>
+
+      <div class="manager-form__row">
+        <div class="manager-form__field">
+          <label for="imageFit">Cadrage</label>
+          <select id="imageFit" formControlName="imageFit">
+            <option value="contain">Voir l'image entière</option>
+            <option value="cover">Remplir la carte (recadrage)</option>
+          </select>
+        </div>
+        <div class="manager-form__field">
+          <label for="imageZoom">Zoom — {{ form.controls.imageZoom.value }}%</label>
+          <input id="imageZoom" type="range" min="50" max="160" formControlName="imageZoom" />
+        </div>
+      </div>
+
+      @if (form.controls.image.value) {
+        <div class="manager-form__field">
+          <span>Aperçu carte</span>
+          <div class="manager-card-preview">
+            <img
+              [src]="form.controls.image.value"
+              alt="Aperçu"
+              [style.object-fit]="form.controls.imageFit.value"
+              [style.transform]="'scale(' + (form.controls.imageZoom.value / 100) + ')'"
+            />
+          </div>
+        </div>
+      }
+
+      <div class="manager-form__field">
+        <label for="screenshots">Captures d'écran</label>
+        <input id="screenshots" type="file" accept="image/*" multiple (change)="onScreenshotsSelected($event)" />
+        @if (isUploading()) {
+          <small class="manager__hint">Envoi en cours…</small>
+        }
+        @if (uploadError(); as err) {
+          <small class="manager__error">{{ err }}</small>
+        }
+        @if (screenshots().length) {
+          <div class="manager-thumbs">
+            @for (url of screenshots(); track url) {
+              <div class="manager-thumbs__item">
+                <img [src]="url" alt="Capture" />
+                <button type="button" (click)="removeScreenshot(url)" aria-label="Retirer la capture">×</button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="manager-form__row">
+        <div class="manager-form__field">
+          <label for="githubUrl">Lien GitHub (optionnel)</label>
+          <input id="githubUrl" type="url" formControlName="githubUrl" />
+        </div>
+        <div class="manager-form__field">
+          <label for="demoUrl">Lien démo (optionnel)</label>
+          <input id="demoUrl" type="url" formControlName="demoUrl" />
+        </div>
+      </div>
+
+      <div class="manager-form__field">
+        <label for="apkUrl">Lien APK (optionnel)</label>
+        <input id="apkUrl" type="url" formControlName="apkUrl" placeholder="https://drive.google.com/..." />
+      </div>
+
+      <label class="manager-form__checkbox">
+        <input type="checkbox" formControlName="featured" />
+        Mettre en avant sur la page d'accueil
+      </label>
+
+      <div class="manager-form__actions">
+        <button type="button" class="manager-form__cancel" (click)="cancelForm()">Annuler</button>
+        <button type="submit" class="manager-form__submit" [disabled]="isSaving() || isUploading()">
+          @if (isSaving()) { Enregistrement... } @else { Publier }
+        </button>
+      </div>
+    </form>
+  }
+
+  <table class="manager-table">
+    <thead>
+      <tr><th></th><th>Titre</th><th>Catégorie</th><th>Vitrine</th><th></th></tr>
+    </thead>
+    <tbody>
+      @for (project of filteredProjects(); track project._id) {
+        <tr>
+          <td>
+            @if (project.image) {
+              <img class="manager-table__thumb" [src]="project.image" [alt]="project.title" />
+            }
+          </td>
+          <td>
+            {{ project.title }}
+            @if ((project.screenshots ?? []).length) {
+              <span class="manager__hint"> · {{ project.screenshots!.length }} capture(s)</span>
+            }
+          </td>
+          <td>{{ project.category }}</td>
+          <td>
+            <span class="manager-pill" [class.manager-pill--on]="project.featured">{{ project.featured ? 'Oui' : 'Non' }}</span>
+          </td>
+          <td class="manager-table__actions">
+            @if (project._id) {
+              <a [routerLink]="['/portfolio', project._id]" target="_blank" rel="noopener">Voir</a>
+            }
+            <button type="button" (click)="openEditForm(project)">Modifier</button>
+            <button type="button" class="manager-table__delete" (click)="deleteProject(project)">Supprimer</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5" class="manager-table__empty">Aucun projet pour le moment.</td></tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,28 @@
+<header class="header">
+  <div class="header__inner">
+    <a routerLink="/" class="header__logo" (click)="closeMenu()">
+      <span class="header__logo-icon" aria-hidden="true">&lt;/&gt;</span>
+      <span class="header__logo-text">Romance Nguema</span>
+    </a>
+
+    <nav class="header__nav" [class.header__nav--open]="isMenuOpen()">
+      <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Accueil</a>
+      <a routerLink="/a-propos" routerLinkActive="is-active" (click)="closeMenu()">À propos</a>
+      <a routerLink="/competences" routerLinkActive="is-active" (click)="closeMenu()">Compétences</a>
+      <a routerLink="/portfolio" routerLinkActive="is-active" (click)="closeMenu()">Portfolio</a>
+      <a routerLink="/contact" routerLinkActive="is-active" (click)="closeMenu()">Contact</a>
+      <a class="header__cv" [href]="profile().cvUrl" target="_blank" rel="noopener noreferrer">Télécharger mon CV</a>
+    </nav>
+
+    <button
+      class="header__burger"
+      type="button"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen()"
+      aria-label="Ouvrir le menu"
+    >
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>

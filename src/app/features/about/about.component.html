@@ -1,0 +1,51 @@
+<app-header />
+
+<main class="about-page">
+  <section class="about-intro">
+    <div class="about-intro__inner">
+      <div class="about-intro__copy">
+        <p class="eyebrow">À propos</p>
+        <h1 class="about-intro__title">Qui suis-je</h1>
+        <p class="about-intro__text about-intro__text--pre">{{ profile().bio }}</p>
+        <a [href]="profile().cvUrl" target="_blank" rel="noopener" class="about-intro__cv-btn">
+          Télécharger mon CV
+        </a>
+      </div>
+
+      <a [href]="profile().cvUrl" target="_blank" rel="noopener noreferrer" class="about-intro__cv">
+        <img [src]="cvImage" alt="CV de Romance Nguema — Développeur mobile et web" />
+        <span>Voir le CV</span>
+      </a>
+    </div>
+  </section>
+
+  @if (profile().softSkills.length > 0) {
+    <section class="about-extra">
+      <div class="about-extra__inner">
+        <p class="eyebrow">Soft skills</p>
+        <ul class="about-extra__list">
+          @for (skill of profile().softSkills; track skill) {
+            <li>{{ skill }}</li>
+          }
+        </ul>
+      </div>
+    </section>
+  }
+
+  @if (profile().interests.length > 0) {
+    <section class="about-extra">
+      <div class="about-extra__inner">
+        <p class="eyebrow">Centres d'intérêt</p>
+        <ul class="about-extra__list">
+          @for (interest of profile().interests; track interest) {
+            <li>{{ interest }}</li>
+          }
+        </ul>
+      </div>
+    </section>
+  }
+
+  <app-timeline />
+</main>
+
+<app-footer />

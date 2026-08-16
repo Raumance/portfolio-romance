@@ -1,0 +1,29 @@
+.portfolio-preview {
+  padding: 5.5rem 0 6.5rem;
+  background: var(--color-bg-alt);
+}
+
+.portfolio-preview__inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.portfolio-preview__title {
+  margin: 0 0 2.5rem;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.portfolio-preview__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.25rem;
+}
+
+.portfolio-preview__empty {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}

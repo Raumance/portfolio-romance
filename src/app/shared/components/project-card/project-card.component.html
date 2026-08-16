@@ -1,0 +1,35 @@
+<article class="project-card">
+  <a [routerLink]="detailRoute()" class="project-card__image">
+    <img
+      [src]="project().image"
+      [alt]="project().title"
+      [style.object-fit]="project().imageFit || 'contain'"
+      [style.transform]="'scale(' + ((project().imageZoom ?? 100) / 100) + ')'"
+    />
+  </a>
+
+  <div class="project-card__body">
+    <a [routerLink]="detailRoute()" class="project-card__title-link">
+      <h3 class="project-card__title">{{ project().title }}</h3>
+    </a>
+    <p class="project-card__description">{{ project().shortDescription }}</p>
+
+    <ul class="project-card__tech">
+      @for (tech of project().technologies; track tech) {
+        <li>{{ tech }}</li>
+      }
+    </ul>
+
+    <div class="project-card__links">
+      @if (project().githubUrl) {
+        <a [href]="project().githubUrl" target="_blank" rel="noopener noreferrer">Code source</a>
+      }
+      @if (project().demoUrl) {
+        <a [href]="project().demoUrl" target="_blank" rel="noopener noreferrer">Démo</a>
+      }
+      @if (project().apkUrl) {
+        <a [href]="project().apkUrl" target="_blank" rel="noopener noreferrer">Télécharger l'APK</a>
+      }
+    </div>
+  </div>
+</article>

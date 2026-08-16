@@ -1,0 +1,18 @@
+.skill-category {
+  &__title {
+    font-size: 1.1rem;
+    margin: 0 0 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  &__list {
+    display: grid;
+    gap: 1rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 2rem;
+    }
+  }
+}

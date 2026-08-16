@@ -1,0 +1,63 @@
+<form class="contact-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <div class="contact-form__honeypot" aria-hidden="true">
+    <label for="website">Laissez ce champ vide</label>
+    <input id="website" type="text" formControlName="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="contact-form__row">
+    <div class="contact-form__field">
+      <label for="name">Nom</label>
+      <input id="name" type="text" formControlName="name" [class.contact-form__input--error]="f.name.invalid && f.name.touched" />
+      @if (f.name.invalid && f.name.touched) {
+        <span class="contact-form__error">Merci d'indiquer votre nom (2 caractères minimum).</span>
+      }
+    </div>
+
+    <div class="contact-form__field">
+      <label for="email">E-mail</label>
+      <input id="email" type="email" formControlName="email" [class.contact-form__input--error]="f.email.invalid && f.email.touched" />
+      @if (f.email.invalid && f.email.touched) {
+        <span class="contact-form__error">Merci d'indiquer une adresse e-mail valide.</span>
+      }
+    </div>
+  </div>
+
+  <div class="contact-form__field">
+    <label for="subject">Sujet</label>
+    <input id="subject" type="text" formControlName="subject" [class.contact-form__input--error]="f.subject.invalid && f.subject.touched" />
+    @if (f.subject.invalid && f.subject.touched) {
+      <span class="contact-form__error">Merci d'indiquer un sujet.</span>
+    }
+  </div>
+
+  <div class="contact-form__field">
+    <label for="message">Message</label>
+    <textarea id="message" rows="6" formControlName="message" [class.contact-form__input--error]="f.message.invalid && f.message.touched"></textarea>
+    @if (f.message.invalid && f.message.touched) {
+      <span class="contact-form__error">Votre message doit contenir au moins 10 caractères.</span>
+    }
+  </div>
+
+  <button type="submit" class="contact-form__submit" [disabled]="status() === 'sending'">
+    @switch (status()) {
+      @case ('sending') { Envoi en cours... }
+      @default { Envoyer le message }
+    }
+  </button>
+
+  @if (status() === 'success') {
+    <p class="contact-form__feedback contact-form__feedback--success">
+      Votre message a bien été envoyé, merci ! Je vous répondrai rapidement.
+    </p>
+  }
+  @if (status() === 'saved') {
+    <p class="contact-form__feedback contact-form__feedback--success">
+      Message bien reçu. La notification e-mail est encore en cours de configuration.
+    </p>
+  }
+  @if (status() === 'error') {
+    <p class="contact-form__feedback contact-form__feedback--error">
+      Une erreur est survenue lors de l'envoi. Réessayez ou écrivez-moi directement par e-mail.
+    </p>
+  }
+</form>

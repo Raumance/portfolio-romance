@@ -1,0 +1,34 @@
+<section class="skills-preview" id="skills">
+  <div class="skills-preview__inner">
+    <div class="skills-preview__top">
+      <div>
+        <p class="eyebrow">Mes compétences</p>
+        <h2 class="skills-preview__title">Les technologies que je maîtrise</h2>
+      </div>
+      <div class="skills-preview__nav">
+        <button type="button" class="circle-btn circle-btn--ghost" (click)="prev()" aria-label="Compétence précédente">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button type="button" class="circle-btn" (click)="next()" aria-label="Compétence suivante">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="skills-preview__track">
+      @for (skill of visibleSkills(); track skill._id ?? skill.name) {
+        <article class="skills-preview__card">
+          <app-skill-badge [skill]="skill" />
+        </article>
+      } @empty {
+        <p class="skills-preview__empty">Les compétences seront bientôt affichées ici.</p>
+      }
+    </div>
+
+    <a routerLink="/competences" class="link-arrow">Voir toutes mes compétences →</a>
+  </div>
+</section>
