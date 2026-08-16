@@ -6,7 +6,8 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Portfolio de Romance Nguema, développeur web et mobile — Angular, Node.js, Flutter.">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -30,12 +31,11 @@
       pointer-events: none;
     }
     #app-splash .mark {
-      font-family: Inter, system-ui, sans-serif;
-      font-size: 1.35rem;
-      font-weight: 800;
-      letter-spacing: 0.18em;
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      object-fit: cover;
     }
-    #app-splash .mark span { color: #1e6bff; }
     #app-splash .spinner {
       width: 34px;
       height: 34px;
@@ -52,7 +52,7 @@
 </head>
 <body>
   <div id="app-splash" role="status" aria-live="polite" aria-label="Chargement du site">
-    <div class="mark">R<span>N</span></div>
+    <img class="mark" src="favicon.png" alt="Romance Nguema">
     <div class="spinner"></div>
   </div>
   <app-root></app-root>

@@ -7,30 +7,31 @@ services:
     buildCommand: npm ci
     startCommand: npm start
     healthCheckPath: /health
+    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
       - key: JWT_EXPIRES_IN
         value: 8h
-      - key: MONGO_URI
-        sync: false
-      - key: JWT_SECRET
-        sync: false
-      - key: ADMIN_EMAIL
-        sync: false
-      - key: ADMIN_PASSWORD
-        sync: false
-      - key: FRONTEND_URL
-        sync: false
       - key: BACKEND_URL
-        sync: false
+        value: https://portfolio-romance-api.onrender.com
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
         value: "587"
       - key: SMTP_EMAIL
+        value: rnguema288@gmail.com
+      - key: CONTACT_RECEIVER_EMAIL
+        value: rnguema288@gmail.com
+      - key: ADMIN_EMAIL
+        value: rnguema288@gmail.com
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: FRONTEND_URL
         sync: false
       - key: SMTP_PASSWORD
-        sync: false
-      - key: CONTACT_RECEIVER_EMAIL
         sync: false
