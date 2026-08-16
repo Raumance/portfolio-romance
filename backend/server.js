@@ -91,7 +91,4 @@ app.listen(PORT, '0.0.0.0', () => {
   console.log(`Serveur démarré en mode ${process.env.NODE_ENV || 'développement'} sur le port ${PORT}`);
 });
 
-connectDB().catch((error) => {
-  console.error(`Erreur de connexion MongoDB : ${error.message}`);
-  process.exit(1);
-});
+connectDB();
