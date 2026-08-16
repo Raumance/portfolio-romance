@@ -8,4 +8,5 @@ import { Component, input } from '@angular/core';
 })
 export class LoaderComponent {
   label = input<string>('Chargement...');
+  variant = input<'inline' | 'page'>('inline');
 }

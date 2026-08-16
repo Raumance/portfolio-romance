@@ -1,19 +1,22 @@
 import { Component, inject, computed } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { Project } from '../../../../core/models/project.model';
 import { ProjectService } from '../../../../core/services/project.service';
 import { ProjectCardComponent } from '../../../../shared/components/project-card/project-card.component';
+import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
+import { toLoadableSignal } from '../../../../core/utils/to-loadable-signal';
 
 @Component({
   selector: 'app-portfolio-preview',
-  imports: [RouterLink, ProjectCardComponent],
+  imports: [RouterLink, ProjectCardComponent, LoaderComponent],
   templateUrl: './portfolio-preview.component.html',
   styleUrl: './portfolio-preview.component.scss'
 })
 export class PortfolioPreviewComponent {
   private projectService = inject(ProjectService);
-  private allProjects = toSignal(this.projectService.getAll(), { initialValue: [] });
+  private loaded = toLoadableSignal<Project[]>(this.projectService.getAll(), []);
+  private allProjects = this.loaded.data;
+  readonly isLoading = this.loaded.isLoading;
 
   private fallbackFeaturedProjects: Project[] = [
     {

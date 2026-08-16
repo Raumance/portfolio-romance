@@ -13,25 +13,29 @@
 
   <section class="portfolio-grid-section">
     <div class="portfolio-grid-section__inner">
-      @if (categories().length > 0) {
-        <app-project-filter
-          [categories]="categories()"
-          [technologies]="technologies()"
-          [activeCategory]="activeCategory()"
-          [activeTechnology]="activeTechnology()"
-          (categoryChange)="onCategoryChange($event)"
-          (technologyChange)="onTechnologyChange($event)"
-        />
-      }
-
-      @if (filteredProjects().length > 0) {
-        <div class="portfolio-grid-section__grid">
-          @for (project of filteredProjects(); track project._id) {
-            <app-project-card [project]="project" />
-          }
-        </div>
+      @if (isLoading()) {
+        <app-loader variant="page" label="Chargement des projets..." />
       } @else {
-        <p class="portfolio-grid-section__empty">Les projets seront bientôt affichés ici.</p>
+        @if (categories().length > 0) {
+          <app-project-filter
+            [categories]="categories()"
+            [technologies]="technologies()"
+            [activeCategory]="activeCategory()"
+            [activeTechnology]="activeTechnology()"
+            (categoryChange)="onCategoryChange($event)"
+            (technologyChange)="onTechnologyChange($event)"
+          />
+        }
+
+        @if (filteredProjects().length > 0) {
+          <div class="portfolio-grid-section__grid">
+            @for (project of filteredProjects(); track project._id) {
+              <app-project-card [project]="project" />
+            }
+          </div>
+        } @else {
+          <p class="portfolio-grid-section__empty">Les projets seront bientôt affichés ici.</p>
+        }
       }
     </div>
   </section>

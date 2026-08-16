@@ -3,13 +3,17 @@
     <p class="eyebrow">Portfolio</p>
     <h2 class="portfolio-preview__title">Quelques réalisations</h2>
 
-    <div class="portfolio-preview__grid">
-      @for (project of featuredProjects(); track project._id) {
-        <app-project-card [project]="project" />
-      } @empty {
-        <p class="portfolio-preview__empty">Les projets seront bientôt affichés ici.</p>
-      }
-    </div>
+    @if (isLoading()) {
+      <app-loader label="Chargement des projets..." />
+    } @else {
+      <div class="portfolio-preview__grid">
+        @for (project of featuredProjects(); track project._id) {
+          <app-project-card [project]="project" />
+        } @empty {
+          <p class="portfolio-preview__empty">Les projets seront bientôt affichés ici.</p>
+        }
+      </div>
+    }
 
     <a routerLink="/portfolio" class="link-arrow">Voir tous mes projets →</a>
   </div>

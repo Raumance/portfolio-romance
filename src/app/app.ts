@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { filter } from 'rxjs';
+import { PageLoaderComponent } from './shared/components/page-loader/page-loader.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, PageLoaderComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

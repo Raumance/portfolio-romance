@@ -1,10 +1,11 @@
 import { Component, inject, computed } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { SkillCategoryComponent } from './components/skill-category/skill-category.component';
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 import { SkillService } from '../../core/services/skill.service';
 import { Skill } from '../../core/models/skill.model';
+import { toLoadableSignal } from '../../core/utils/to-loadable-signal';
 
 interface SkillGroup {
   category: Skill['category'];
@@ -24,13 +25,15 @@ const CATEGORY_ORDER: Skill['category'][] = ['Frontend', 'Backend', 'Bases de do
 
 @Component({
   selector: 'app-skills',
-  imports: [HeaderComponent, FooterComponent, SkillCategoryComponent],
+  imports: [HeaderComponent, FooterComponent, SkillCategoryComponent, LoaderComponent],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss'
 })
 export class SkillsComponent {
   private skillService = inject(SkillService);
-  private allSkills = toSignal(this.skillService.getAll(), { initialValue: [] });
+  private loaded = toLoadableSignal<Skill[]>(this.skillService.getAll(), []);
+  private allSkills = this.loaded.data;
+  readonly isLoading = this.loaded.isLoading;
 
   groups = computed<SkillGroup[]>(() =>
     CATEGORY_ORDER

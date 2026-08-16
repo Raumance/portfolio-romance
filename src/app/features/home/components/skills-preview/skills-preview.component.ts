@@ -1,18 +1,22 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { SkillService } from '../../../../core/services/skill.service';
 import { SkillBadgeComponent } from '../../../../shared/components/skill-badge/skill-badge.component';
+import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
+import { toLoadableSignal } from '../../../../core/utils/to-loadable-signal';
+import { Skill } from '../../../../core/models/skill.model';
 
 @Component({
   selector: 'app-skills-preview',
-  imports: [RouterLink, SkillBadgeComponent],
+  imports: [RouterLink, SkillBadgeComponent, LoaderComponent],
   templateUrl: './skills-preview.component.html',
   styleUrl: './skills-preview.component.scss'
 })
 export class SkillsPreviewComponent {
   private skillService = inject(SkillService);
-  private allSkills = toSignal(this.skillService.getAll(), { initialValue: [] });
+  private loaded = toLoadableSignal<Skill[]>(this.skillService.getAll(), []);
+  private allSkills = this.loaded.data;
+  readonly isLoading = this.loaded.isLoading;
   private index = signal(0);
   private readonly visibleCount = 3;
 

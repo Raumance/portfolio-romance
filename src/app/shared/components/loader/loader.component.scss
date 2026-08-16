@@ -6,6 +6,12 @@
   padding: 2rem;
   color: var(--color-text-muted);
 
+  &--page {
+    min-height: 42vh;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
   &__spinner {
     width: 22px;
     height: 22px;
@@ -23,5 +29,11 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader__spinner {
+    animation: none;
   }
 }

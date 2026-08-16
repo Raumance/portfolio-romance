@@ -1,14 +1,16 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap, tap } from 'rxjs';
+import { catchError, of, switchMap, tap } from 'rxjs';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { ProjectService } from '../../../core/services/project.service';
+import { Project } from '../../../core/models/project.model';
 
 @Component({
   selector: 'app-portfolio-detail',
-  imports: [HeaderComponent, FooterComponent, RouterLink],
+  imports: [HeaderComponent, FooterComponent, RouterLink, LoaderComponent],
   templateUrl: './portfolio-detail.component.html',
   styleUrl: './portfolio-detail.component.scss'
 })
@@ -16,11 +18,26 @@ export class PortfolioDetailComponent {
   private route = inject(ActivatedRoute);
   private projectService = inject(ProjectService);
   activeImage = signal<string | null>(null);
+  isLoading = signal(true);
 
   project = toSignal(
     this.route.paramMap.pipe(
-      switchMap((params) => this.projectService.getById(params.get('id')!)),
-      tap((project) => this.activeImage.set(project.image))
+      tap(() => {
+        this.isLoading.set(true);
+        this.activeImage.set(null);
+      }),
+      switchMap((params) =>
+        this.projectService.getById(params.get('id')!).pipe(
+          tap((project) => {
+            this.activeImage.set(project.image);
+            this.isLoading.set(false);
+          }),
+          catchError(() => {
+            this.isLoading.set(false);
+            return of(null as Project | null);
+          })
+        )
+      )
     )
   );
 

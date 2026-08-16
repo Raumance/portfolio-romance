@@ -3,7 +3,9 @@
       <p class="eyebrow">Parcours</p>
     <h2 class="timeline__title">Formation & étapes clés</h2>
 
-    @if (experiences().length > 0) {
+    @if (isLoading()) {
+      <app-loader label="Chargement du parcours..." />
+    } @else if (experiences().length > 0) {
       <ol class="timeline__list">
         <ng-container>
           @for (item of experiences(); track item._id) {

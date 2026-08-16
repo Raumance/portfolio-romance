@@ -119,3 +119,9 @@ textarea {
   background: #3a4048;
   transform: none;
 }
+
+.circle-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}

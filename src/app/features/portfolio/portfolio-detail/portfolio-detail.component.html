@@ -1,7 +1,9 @@
 <app-header />
 
 <main class="portfolio-detail">
-  @if (project(); as p) {
+  @if (isLoading()) {
+    <app-loader variant="page" label="Chargement du projet..." />
+  } @else if (project(); as p) {
     <section class="portfolio-detail__hero">
       <div class="portfolio-detail__inner">
         <a routerLink="/portfolio" class="link-arrow">Retour au portfolio</a>
@@ -46,7 +48,7 @@
       </div>
     </section>
   } @else {
-    <p class="portfolio-detail__empty">Chargement du projet...</p>
+    <p class="portfolio-detail__empty">Ce projet est introuvable.</p>
   }
 </main>
 

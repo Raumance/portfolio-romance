@@ -1,6 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SkillCategoryComponent } from './skill-category.component';
+import { Skill } from '../../../../core/models/skill.model';
+
+const skills: Skill[] = [
+  {
+    _id: 'angular',
+    name: 'Angular',
+    category: 'Frontend',
+    level: 70,
+    icon: 'angular.svg'
+  }
+];
 
 describe('SkillCategoryComponent', () => {
   let component: SkillCategoryComponent;
@@ -13,6 +24,8 @@ describe('SkillCategoryComponent', () => {
 
     fixture = TestBed.createComponent(SkillCategoryComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('label', 'Frontend');
+    fixture.componentRef.setInput('skills', skills);
     await fixture.whenStable();
   });
 

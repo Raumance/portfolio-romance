@@ -10,8 +10,51 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    #app-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 4000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      background: #0e1012;
+      color: #fff;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+    #app-splash.is-done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #app-splash .mark {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+    }
+    #app-splash .mark span { color: #1e6bff; }
+    #app-splash .spinner {
+      width: 34px;
+      height: 34px;
+      border: 3px solid rgba(255, 255, 255, 0.12);
+      border-top-color: #1e6bff;
+      border-radius: 50%;
+      animation: app-splash-spin 0.75s linear infinite;
+    }
+    @keyframes app-splash-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      #app-splash .spinner { animation: none; }
+    }
+  </style>
 </head>
 <body>
+  <div id="app-splash" role="status" aria-live="polite" aria-label="Chargement du site">
+    <div class="mark">R<span>N</span></div>
+    <div class="spinner"></div>
+  </div>
   <app-root></app-root>
 </body>
 </html>

@@ -1,0 +1,10 @@
+@if (isNavigating()) {
+  <div class="page-loader__bar" role="progressbar" aria-hidden="true"></div>
+}
+
+@if (showOverlay()) {
+  <div class="page-loader__overlay" role="status" aria-live="polite" aria-label="Chargement de la page">
+    <span class="page-loader__spinner"></span>
+    <span class="page-loader__label">Chargement...</span>
+  </div>
+}

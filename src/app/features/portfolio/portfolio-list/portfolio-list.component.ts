@@ -1,20 +1,24 @@
 import { Component, inject, signal, computed } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { HeaderComponent } from '../../../shared/components/header/header.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
 import { ProjectCardComponent } from '../../../shared/components/project-card/project-card.component';
 import { ProjectFilterComponent } from '../components/project-filter/project-filter.component';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 import { ProjectService } from '../../../core/services/project.service';
+import { toLoadableSignal } from '../../../core/utils/to-loadable-signal';
+import { Project } from '../../../core/models/project.model';
 
 @Component({
   selector: 'app-portfolio-list',
-  imports: [HeaderComponent, FooterComponent, ProjectCardComponent, ProjectFilterComponent],
+  imports: [HeaderComponent, FooterComponent, ProjectCardComponent, ProjectFilterComponent, LoaderComponent],
   templateUrl: './portfolio-list.component.html',
   styleUrl: './portfolio-list.component.scss'
 })
 export class PortfolioListComponent {
   private projectService = inject(ProjectService);
-  private allProjects = toSignal(this.projectService.getAll(), { initialValue: [] });
+  private loaded = toLoadableSignal<Project[]>(this.projectService.getAll(), []);
+  private allProjects = this.loaded.data;
+  readonly isLoading = this.loaded.isLoading;
 
   activeCategory = signal<string>('all');
   activeTechnology = signal<string>('all');

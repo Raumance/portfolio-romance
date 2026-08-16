@@ -13,10 +13,14 @@
 
   <section class="skills-groups">
     <div class="skills-groups__inner">
-      @for (group of groups(); track group.category) {
-        <app-skill-category [label]="group.label" [skills]="group.skills" />
-      } @empty {
-        <p class="skills-groups__empty">Les compétences seront bientôt renseignées ici.</p>
+      @if (isLoading()) {
+        <app-loader variant="page" label="Chargement des compétences..." />
+      } @else {
+        @for (group of groups(); track group.category) {
+          <app-skill-category [label]="group.label" [skills]="group.skills" />
+        } @empty {
+          <p class="skills-groups__empty">Les compétences seront bientôt renseignées ici.</p>
+        }
       }
     </div>
   </section>
