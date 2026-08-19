@@ -25,6 +25,30 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' }
 }));
 
+const allowedOrigins = [
+  'http://localhost:4200',
+  'https://portfolio-romance.vercel.app',
+  ...(process.env.FRONTEND_URL || '')
+    .split(',')
+    .map((origin) => origin.trim().replace(/\/$/, ''))
+    .filter(Boolean)
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) {
+      return callback(null, true);
+    }
+    const normalized = origin.replace(/\/$/, '');
+    const isAllowed =
+      allowedOrigins.includes(normalized) ||
+      /^https:\/\/portfolio-romance[a-z0-9-]*\.vercel\.app$/.test(normalized);
+    return callback(null, isAllowed);
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 400,
@@ -51,15 +75,6 @@ app.use((req, _res, next) => {
   next();
 });
 app.use(hpp());
-
-app.use(cors({
-  origin: (process.env.FRONTEND_URL || 'http://localhost:4200')
-    .split(',')
-    .map((origin) => origin.trim())
-    .filter(Boolean),
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
 
 app.get('/', (req, res) => {
   res.send('API Portfolio en ligne...');
