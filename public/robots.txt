@@ -1,5 +1,14 @@
 User-agent: *
 Allow: /
 Disallow: /admin
+Disallow: /admin/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
 
 Sitemap: https://portfolio-romance.vercel.app/sitemap.xml

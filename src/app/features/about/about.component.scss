@@ -75,12 +75,16 @@
   }
 
   @media (max-width: 800px) {
+    padding-top: 4.5rem;
+
     &__inner {
       grid-template-columns: 1fr;
     }
 
     &__cv {
-      max-width: 360px;
+      width: 100%;
+      max-width: min(100%, 320px);
+      margin-inline: auto;
     }
   }
 }

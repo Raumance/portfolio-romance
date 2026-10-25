@@ -1,0 +1,26 @@
+{
+  "name": "Romance Nguema — Développeur web et mobile",
+  "short_name": "Romance Nguema",
+  "description": "Portfolio de Romance Nguema, développeur web et mobile à Libreville (Gabon).",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0e1012",
+  "theme_color": "#0e1012",
+  "lang": "fr",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

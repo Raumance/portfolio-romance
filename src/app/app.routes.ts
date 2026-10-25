@@ -5,9 +5,10 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
     data: {
-      title: 'Accueil',
+      title: 'Romance Nguema — Développeur web et mobile à Libreville',
+      titleAbsolute: true,
       description:
-        'Portfolio de Romance Nguema, développeur full-stack à Libreville (Gabon). Applications web et mobiles : Angular, Node.js, MongoDB, Flutter.'
+        'Romance Nguema, développeur web et mobile à Libreville (Gabon). Portfolio d’applications Angular, Node.js, MongoDB et Flutter.'
     }
   },
   {
@@ -15,7 +16,8 @@ export const routes: Routes = [
     loadComponent: () => import('./features/about/about.component').then((m) => m.AboutComponent),
     data: {
       title: 'À propos',
-      description: 'Parcours, formation et soft skills de Romance Nguema, étudiant développeur à Bessieux / INPTIC.'
+      description:
+        'Parcours de Romance Nguema, développeur full-stack à Libreville : formation INPTIC, projets MEAN et applications Flutter.'
     }
   },
   {
@@ -23,7 +25,8 @@ export const routes: Routes = [
     loadComponent: () => import('./features/skills/skills.component').then((m) => m.SkillsComponent),
     data: {
       title: 'Compétences',
-      description: 'Compétences techniques de Romance Nguema : frontend, backend, bases de données, mobile et outils.'
+      description:
+        'Compétences de Romance Nguema, développeur à Libreville : Angular, Node.js, MongoDB, Flutter, TypeScript et outils.'
     }
   },
   {
@@ -31,7 +34,8 @@ export const routes: Routes = [
     loadChildren: () => import('./features/portfolio/portfolio.routes').then((m) => m.PORTFOLIO_ROUTES),
     data: {
       title: 'Portfolio',
-      description: 'Projets web et mobile de Romance Nguema, filtrables par catégorie et technologie.'
+      description:
+        'Portfolio de Romance Nguema à Libreville : applications web et mobiles — Ovea, Waz’up, Calculs BTP, Talk to Me.'
     }
   },
   {
@@ -39,7 +43,8 @@ export const routes: Routes = [
     loadComponent: () => import('./features/contact/contact.component').then((m) => m.ContactComponent),
     data: {
       title: 'Contact',
-      description: 'Contacter Romance Nguema pour un stage, une alternance ou une mission.'
+      description:
+        'Contacter Romance Nguema, développeur web et mobile à Libreville, pour un stage, une alternance ou une mission.'
     }
   },
   {
@@ -58,6 +63,10 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () => import('./features/not-found/not-found.component').then((m) => m.NotFoundComponent),
-    data: { title: 'Page introuvable' }
+    data: {
+      title: 'Page introuvable',
+      description: 'Cette page n’existe pas sur le portfolio de Romance Nguema.',
+      robots: 'noindex, nofollow'
+    }
   }
 ];
