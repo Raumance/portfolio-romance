@@ -6,6 +6,7 @@ import { LoaderComponent } from '../../shared/components/loader/loader.component
 import { SkillService } from '../../core/services/skill.service';
 import { Skill } from '../../core/models/skill.model';
 import { toLoadableSignal } from '../../core/utils/to-loadable-signal';
+import { FALLBACK_SKILLS } from '../../core/data/fallback-content';
 
 interface SkillGroup {
   category: Skill['category'];
@@ -31,7 +32,7 @@ const CATEGORY_ORDER: Skill['category'][] = ['Frontend', 'Backend', 'Bases de do
 })
 export class SkillsComponent {
   private skillService = inject(SkillService);
-  private loaded = toLoadableSignal<Skill[]>(this.skillService.getAll(), []);
+  private loaded = toLoadableSignal<Skill[]>(this.skillService.getAll(), FALLBACK_SKILLS);
   private allSkills = this.loaded.data;
   readonly isLoading = this.loaded.isLoading;
 

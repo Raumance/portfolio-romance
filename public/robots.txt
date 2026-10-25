@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://romance-nguema.dev/sitemap.xml
+Sitemap: https://portfolio-romance.vercel.app/sitemap.xml

@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { ExperienceService } from '../../../../core/services/experience.service';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 import { toLoadableSignal } from '../../../../core/utils/to-loadable-signal';
+import { FALLBACK_EXPERIENCES } from '../../../../core/data/fallback-content';
 import { Experience } from '../../../../core/models/experience.model';
 
 @Component({
@@ -13,7 +14,7 @@ import { Experience } from '../../../../core/models/experience.model';
 })
 export class TimelineComponent {
   private experienceService = inject(ExperienceService);
-  private loaded = toLoadableSignal<Experience[]>(this.experienceService.getAll(), []);
+  private loaded = toLoadableSignal<Experience[]>(this.experienceService.getAll(), FALLBACK_EXPERIENCES);
   experiences = this.loaded.data;
   readonly isLoading = this.loaded.isLoading;
 }

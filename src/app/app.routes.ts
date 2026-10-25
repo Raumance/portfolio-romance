@@ -6,7 +6,8 @@ export const routes: Routes = [
     loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
     data: {
       title: 'Accueil',
-      description: 'Portfolio de Romance Nguema, développeur full-stack — Angular, Node.js, MongoDB, Flutter.'
+      description:
+        'Portfolio de Romance Nguema, développeur full-stack à Libreville (Gabon). Applications web et mobiles : Angular, Node.js, MongoDB, Flutter.'
     }
   },
   {

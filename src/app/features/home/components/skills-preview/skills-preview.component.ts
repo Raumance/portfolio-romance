@@ -4,6 +4,7 @@ import { SkillService } from '../../../../core/services/skill.service';
 import { SkillBadgeComponent } from '../../../../shared/components/skill-badge/skill-badge.component';
 import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 import { toLoadableSignal } from '../../../../core/utils/to-loadable-signal';
+import { FALLBACK_SKILLS } from '../../../../core/data/fallback-content';
 import { Skill } from '../../../../core/models/skill.model';
 
 @Component({
@@ -14,7 +15,7 @@ import { Skill } from '../../../../core/models/skill.model';
 })
 export class SkillsPreviewComponent {
   private skillService = inject(SkillService);
-  private loaded = toLoadableSignal<Skill[]>(this.skillService.getAll(), []);
+  private loaded = toLoadableSignal<Skill[]>(this.skillService.getAll(), FALLBACK_SKILLS);
   private allSkills = this.loaded.data;
   readonly isLoading = this.loaded.isLoading;
   private index = signal(0);
